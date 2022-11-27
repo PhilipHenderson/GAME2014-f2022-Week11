@@ -32,7 +32,7 @@ public class MovingPlatformController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -46,15 +46,23 @@ public class MovingPlatformController : MonoBehaviour
         switch (direction)
         {
             case PlatformDirection.HORIZONTAL:
-                transform.position 
-                    = new Vector2(Mathf.PingPong(horizontalSpeed * Time.time, horizontalDistance) + startPoint.x, 
-                    startPoint.y);
+                transform.position = new Vector2
+                        (Mathf.PingPong(horizontalSpeed * Time.time, horizontalDistance) + startPoint.x, startPoint.y);
                 break;
             case PlatformDirection.VERTICAL:
+                transform.position = new Vector2 
+                    (startPoint.x, 
+                     Mathf.PingPong(verticalSpeed * Time.time, verticalDistance) + startPoint.y);
                 break;
             case PlatformDirection.DIAGONAL_UP:
+                transform.position = new Vector2
+                    (Mathf.PingPong(horizontalSpeed * Time.time, horizontalDistance) + startPoint.x,
+                     Mathf.PingPong(verticalSpeed * Time.time, verticalDistance) + startPoint.y);
                 break;
             case PlatformDirection.DIAGONAL_DOWN:
+                transform.position = new Vector2
+                    (Mathf.PingPong(horizontalSpeed * Time.time, horizontalDistance) + startPoint.x,
+                     startPoint.y - Mathf.PingPong(verticalSpeed * Time.time, verticalDistance));
                 break;
             case PlatformDirection.CUSTOM:
                 break;
